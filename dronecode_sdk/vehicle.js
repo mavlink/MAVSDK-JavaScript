@@ -50,7 +50,7 @@ class Vehicle {
           if (error) {
             reject(error);
           }
-          this._register_plugin(pluginName, pluginObject, pluginService);
+          this.registerPlugin(pluginName, pluginObject, pluginService);
           resolve(pluginObject);
         });
       });
@@ -63,7 +63,23 @@ class Vehicle {
     });
   }
 
-  _register_plugin(pluginName, pluginObject, pluginService) {
+  _get_plugin_path(pluginName) {
+    return 'proto/protos/' + pluginName + '/' + pluginName + '.proto';
+  }
+
+  _get_plugin_service(pluginName) {
+    return pluginName.charAt(0).toUpperCase() + pluginName.slice(1) + 'Service';
+  }
+
+  _get_connection(pluginName) {
+    return this._host + ":" + this._port;
+  }
+
+  _get_deadline(seconds) {
+    return (new Date().getTime()) + (seconds * 1000); // seconds to ms + current time
+  }
+
+  registerPlugin(pluginName, pluginObject, pluginService) {
     console.log(`[+] Registering plugin: ${pluginName}`);
     Object.defineProperty(this,
       pluginName, {
@@ -82,8 +98,4 @@ class Vehicle {
   }
 }
 
-//export default Vehicle;
-
-new Vehicle('127.0.0.1', 50051, false).connect().then((vehicle) => {
-  console.log(Object.keys(vehicle.telemetry));
-});
+export default Vehicle;
