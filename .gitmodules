@@ -1,0 +1,6 @@
+[submodule "DronecodeSDK-Proto"]
+	path = DronecodeSDK-Proto
+	url = git@github.com:Dronecode/DronecodeSDK-Proto.git
+[submodule "proto"]
+	path = proto
+	url = git@github.com:Dronecode/DronecodeSDK-Proto.git
