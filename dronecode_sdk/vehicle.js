@@ -1,6 +1,4 @@
-const util = require('util');
-const loader = require('@grpc/proto-loader');
-const grpc = require('@grpc/grpc-js');
+const Action = require('./action');
 
 class Vehicle {
   constructor(host, port, autoconnect) {
@@ -27,48 +25,39 @@ class Vehicle {
       includeDirs: ['proto/protos'],
     };
 
+    /*
+    REGISTER YOUR PLUGINS HERE
+    */
     const plugins = [
-      'gimbal',
-      'core',
-      'calibration',
-      'camera',
-      'discovery',
-      'mission',
-      'info',
-      'action',
-      'telemetry',
+      { name: 'action', handler: Action },
+      // { name: 'gimbal', handler: Action },
+      // { name: 'core', handler: Action },
+      // { name: 'calibration', handler: Action },
+      // { name: 'camera', handler: Action },
+      // { name: 'discovery', handler: Action },
+      // { name: 'mission', handler: Action },
+      // { name: 'info', handler: Action },
+      // { name: 'telemetry', handler: Action },
     ];
 
-    const pluginsMap = plugins.map((pluginName) => {
-      const packageDefinition = loader.loadSync(this._get_plugin_path(pluginName), plugin_options);
-      const service = grpc.loadPackageDefinition(packageDefinition);
-      const pluginObject = service.dronecode_sdk.rpc[pluginName];
-      const pluginInstance = pluginObject[this._get_plugin_service(pluginName)];
-      const pluginService = new pluginInstance(this._get_connection(), grpc.credentials.createInsecure());
+    const pluginsMap = plugins.map((pluginObject) => {
       return new Promise((resolve, reject) => {
-        pluginService.waitForReady(this._get_deadline(5), (error) => {
-          if (error) {
-            reject(error);
-          }
-          this.registerPlugin(pluginName, pluginObject, pluginService);
-          resolve(pluginObject);
-        });
+        const plugin = new pluginObject.handler(this.getConnectionPath());
+
+        this.registerPlugin(pluginObject.name, plugin);
+        resolve(plugin);
       });
     });
 
     return Promise.all(pluginsMap).then((values) => {
-      console.log('[+] Vehicle plugins initialized');
+      // console.log('[+] Vehicle plugins initialized');
       this._ready = true;
       return this;
     });
   }
 
-  _get_plugin_path(pluginName) {
-    return 'proto/protos/' + pluginName + '/' + pluginName + '.proto';
-  }
-
-  _get_plugin_service(pluginName) {
-    return pluginName.charAt(0).toUpperCase() + pluginName.slice(1) + 'Service';
+  getConnectionPath(pluginName) {
+    return this._host + ":" + this._port;
   }
 
   _get_connection(pluginName) {
@@ -79,19 +68,12 @@ class Vehicle {
     return (new Date().getTime()) + (seconds * 1000); // seconds to ms + current time
   }
 
-  registerPlugin(pluginName, pluginObject, pluginService) {
-    console.log(`[+] Registering plugin: ${pluginName}`);
+  registerPlugin(pluginName, plugin) {
+    // console.log(`[+] Registering plugin: ${pluginName}`);
     Object.defineProperty(this,
       pluginName, {
         get: () => {
-          return pluginObject;
-        }
-      },
-    );
-    Object.defineProperty(this,
-      pluginName + 'Service', {
-        get: () => {
-          return pluginService;
+          return plugin;
         }
       },
     );
