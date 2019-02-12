@@ -1,4 +1,4 @@
-const Action = require('./action');
+import Action from './action/action';
 
 class Vehicle {
   constructor(host, port, autoconnect) {
@@ -43,14 +43,12 @@ class Vehicle {
     const pluginsMap = plugins.map((pluginObject) => {
       return new Promise((resolve, reject) => {
         const plugin = new pluginObject.handler(this.getConnectionPath());
-
         this.registerPlugin(pluginObject.name, plugin);
         resolve(plugin);
       });
     });
 
     return Promise.all(pluginsMap).then((values) => {
-      // console.log('[+] Vehicle plugins initialized');
       this._ready = true;
       return this;
     });
@@ -60,16 +58,7 @@ class Vehicle {
     return this._host + ":" + this._port;
   }
 
-  _get_connection(pluginName) {
-    return this._host + ":" + this._port;
-  }
-
-  _get_deadline(seconds) {
-    return (new Date().getTime()) + (seconds * 1000); // seconds to ms + current time
-  }
-
   registerPlugin(pluginName, plugin) {
-    // console.log(`[+] Registering plugin: ${pluginName}`);
     Object.defineProperty(this,
       pluginName, {
         get: () => {
@@ -80,4 +69,4 @@ class Vehicle {
   }
 }
 
-module.exports = Vehicle;
+export default Vehicle;

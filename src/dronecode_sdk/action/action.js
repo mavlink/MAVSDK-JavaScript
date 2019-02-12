@@ -1,6 +1,32 @@
-const grpc = require('grpc');
-const Plugin = require('./plugin');
+const { ArmRequest } = require('./action_pb');
+const { ActionServicePromiseClient } = require('./action_grpc_web_pb');
 
+class Action {
+    constructor(path) {
+        this.path = path;
+        this.ready = false;
+        // console.log(ActionServicePromiseClient);
+        this.plugin = new ActionServicePromiseClient(path);
+        return new Promise((resolve, reject) => {
+            console.log(this.plugin);
+            // console.log(this.plugin.then);
+            resolve(this);
+            // this.plugin.then((action) => {
+            //     resolve(this)
+            // }).catch((error) => {
+            //     reject(error);
+            // });
+        });
+    }
+
+    arm() {
+        const request = new ArmRequest();
+        return this.plugin.arm(request);
+    }
+}
+
+/*
+grpc-node example
 class Action {
     constructor(path) {
         this.path = path;
@@ -71,5 +97,5 @@ class Action {
     }
 
 }
-
-module.exports = Action;
+*/
+export default Action;
