@@ -1,4 +1,4 @@
-const { ArmRequest } = require('./action_pb');
+const { ArmRequest, TakeoffRequest } = require('./action_pb');
 const { ActionServicePromiseClient } = require('./action_grpc_web_pb');
 
 class Action {
@@ -22,6 +22,11 @@ class Action {
     arm() {
         const request = new ArmRequest();
         return this.plugin.arm(request);
+    }
+
+    takeoff() {
+        const request = new TakeoffRequest();
+        return this.plugin.takeoff(request);
     }
 }
 

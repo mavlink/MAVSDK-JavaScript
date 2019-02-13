@@ -1,6 +1,6 @@
 #!/bin/bash
 WORK_DIR="./src"
-PROTO_DIR="/proto/protos"
+PROTO_DIR="proto/protos"
 SDK_DIR="${WORK_DIR}/dronecode_sdk"
 JS_IMPORT_STYLE="commonjs"
 PROTOS=`find ${PROTO_DIR} -name "*.proto" -type f`
