@@ -1,3 +1,7 @@
 node_modules/
 *_pb.js
 lib/
+dist/index.js
+generated
+yarn-error.log
+dist/

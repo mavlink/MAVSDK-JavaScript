@@ -1,8 +1,12 @@
 {
-  "name": "sdk-js",
+  "name": "DronecodeSDK-JavaScript",
   "version": "1.0.0",
-  "description": "just a test project for js sdk clients",
-  "main": "src/index.js",
+  "description": "JavaScript client for DronecodeSDK intended for Web use.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "@babel/runtime": "^7.3.1",
@@ -19,16 +23,13 @@
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.5",
     "grpc-tools": "^1.6.6",
-    "webpack": "^4.29.3",
-    "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.1.14"
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --open"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "@mrpollo",
   "license": "BSD-3-Clause",
-  "repository": "https://github.com/mrpollo/sdk-node",
-  "browserslist": "> 1%"
+  "repository": "https://github.com/mrpollo/dronecodesdk-javascript"
 }

@@ -29,15 +29,7 @@ class Vehicle {
     REGISTER YOUR PLUGINS HERE
     */
     const plugins = [
-      { name: 'action', handler: Action },
-      // { name: 'gimbal', handler: Action },
-      // { name: 'core', handler: Action },
-      // { name: 'calibration', handler: Action },
-      // { name: 'camera', handler: Action },
-      // { name: 'discovery', handler: Action },
-      // { name: 'mission', handler: Action },
-      // { name: 'info', handler: Action },
-      // { name: 'telemetry', handler: Action },
+      { name: 'action', handler: Action }
     ];
 
     const pluginsMap = plugins.map((pluginObject) => {
