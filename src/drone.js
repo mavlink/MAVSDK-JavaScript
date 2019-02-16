@@ -1,4 +1,4 @@
-import Action from './action/action';
+import Action from './dronecode_sdk/action';
 
 class Vehicle {
   constructor(host, port, autoconnect) {
