@@ -1,8 +1,8 @@
 // We need to use require instead of import for statically generated code
 // from grpc-web since they generate commonjs/goog-closure modules
 // https://github.com/google/closure-compiler/wiki/JS-Modules#module-interoperation
-const { ArmRequest, TakeoffRequest } = require('./action_pb');
-const { ActionServicePromiseClient } = require('./action_grpc_web_pb');
+const { ArmRequest, TakeoffRequest } = require('../../generated/action/action_pb');
+const { ActionServicePromiseClient } = require('../../generated/action/action_grpc_web_pb');
 
 class Action {
     constructor(path) {
