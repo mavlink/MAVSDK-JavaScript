@@ -1,9 +1,28 @@
 const path = require('path');
 
-module.exports = {
-  entry: './src/index.js',
+const development = {
+  entry: './src/index.ts',
+  mode: 'development',
+  devtool: "source-map",
+  module: {
+    rules: [{
+      test: /\.tsx?$/,
+      use: 'ts-loader',
+      exclude: /node_modules/
+    }]
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+    alias: {
+      'DronecodeSDK': path.resolve(__dirname, 'vendor/index.js')
+    }
+  },
   output: {
-    filename: 'dronecode_sdk.bundle.js',
+    library: 'DronecodeSDK',
+    libraryTarget: 'umd',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
-  }
+  },
 };
+
+module.exports = development;
