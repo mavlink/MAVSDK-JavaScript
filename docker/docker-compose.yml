@@ -6,15 +6,15 @@ services:
             - "9901:9901"
             - "10000:10000"
         links:
-            - dcsdk_backend
-    dcsdk_backend:
-        image: mrpollo/dronecode-sdk-backend
+            - mavsdk_server
+    mavsdk_server:
+        build: ./mavsdk_server
         ports:
             - "50051:50051"
             - "14540:14540/udp"
     gazebo_sitl_headless:
-        image: jonasvautherin/px4-gazebo-headless:v1.8.0
+        image: jonasvautherin/px4-gazebo-headless:v1.9.2
         environment:
             - NO_PXH=1
         links:
-            - dcsdk_backend
+            - mavsdk_server
