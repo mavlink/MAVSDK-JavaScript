@@ -15,8 +15,8 @@ class Plugin {
         this.path = path;
         this.name = name;
         // const packageDefinition = loader.loadSync(this.getProtoPath(), pluginOptions);
-        // this.dronecode_sdk = grpc.loadPackageDefinition(packageDefinition).dronecode_sdk;
-        // this.basePlugin = this.dronecode_sdk.rpc[this.name];
+        // this.mavsdk = grpc.loadPackageDefinition(packageDefinition).mavsdk;
+        // this.basePlugin = this.mavsdk.rpc[this.name];
         // this.connectService();
 
         return this;
