@@ -1,6 +1,6 @@
 import Action from './action/action';
 
-class Vehicle {
+class Drone {
   constructor(host, port, autoconnect) {
     this._host = host;
     this._port = port;
@@ -30,14 +30,14 @@ class Vehicle {
     */
     const plugins = [
       { name: 'action', handler: Action },
-      // { name: 'gimbal', handler: Action },
-      // { name: 'core', handler: Action },
-      // { name: 'calibration', handler: Action },
-      // { name: 'camera', handler: Action },
-      // { name: 'discovery', handler: Action },
-      // { name: 'mission', handler: Action },
-      // { name: 'info', handler: Action },
-      // { name: 'telemetry', handler: Action },
+      // { name: 'gimbal', handler: Gimbal },
+      // { name: 'core', handler: Core },
+      // { name: 'calibration', handler: Calibration },
+      // { name: 'camera', handler: Camera },
+      // { name: 'discovery', handler: Discovery },
+      // { name: 'mission', handler: Mission },
+      // { name: 'info', handler: Info },
+      // { name: 'telemetry', handler: Telemetry },
     ];
 
     const pluginsMap = plugins.map((pluginObject) => {
@@ -69,4 +69,4 @@ class Vehicle {
   }
 }
 
-export default Vehicle;
+export default Drone;
