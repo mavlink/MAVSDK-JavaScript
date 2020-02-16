@@ -4,11 +4,11 @@ set -e
 
 WORK_DIR="./src"
 PROTO_DIR="proto/protos"
-SDK_DIR="${WORK_DIR}/dronecode_sdk"
+SDK_DIR="${WORK_DIR}/mavsdk"
 JS_IMPORT_STYLE="commonjs"
 PROTOS=`find ${PROTO_DIR} -name "*.proto" -type f`
 
-command -v protoc-gen-grpc-web >/dev/null 2>&1 || { echo "ERROR: 'protoc-gen-grpc-web' is required (find it here: https://github.com/grpc/grpc-web/releases)!"; exit 1; }
+command -v protoc-gen-grpc-web >/dev/null 2>&1 || { echo "ERROR: 'protoc-gen-grpc-web' is required (find it here: https://github.com/grpc/grpc-web/releases)!"; echo "You can also install the package globally with 'npm install -g protoc-gen-grpc-web'" exit 1; }
 
 function generateForNode {
     echo "  [+] Working on: ${PROTOS}"
@@ -37,4 +37,3 @@ function generateForWeb {
 echo "[+] Generating plugins for grpc-web "
 generateForWeb
 echo "[+] Done"
-
