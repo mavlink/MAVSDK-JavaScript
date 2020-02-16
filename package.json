@@ -11,7 +11,8 @@
     "google-protobuf": "^3.11.2",
     "grpc": "^1.22.0",
     "grpc-web": "^1.0.5",
-    "npm-check-updates": "^3.1.20"
+    "npm-check-updates": "^3.1.20",
+    "protoc-gen-grpc-web": "^1.0.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.5",
