@@ -1,0 +1,11 @@
+@font-face {
+  font-family: OpenSans;
+  src: url(fonts/629a55a7e793da068dc580d184cc0e31.ttf);
+}
+body {
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3R5bGVzLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBLEMiLCJmaWxlIjoiYnVuZGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBmb250LWZhY2Uge1xuICBmb250LWZhbWlseTogT3BlblNhbnM7XG4gIHNyYzogdXJsKGZvbnRzLzYyOWE1NWE3ZTc5M2RhMDY4ZGM1ODBkMTg0Y2MwZTMxLnR0Zik7XG59XG5ib2R5IHtcbiAgbWluLWhlaWdodDogMTAwdmg7XG4gIGJhY2tncm91bmQtcG9zaXRpb246IGNlbnRlcjtcbiAgYmFja2dyb3VuZC1yZXBlYXQ6IG5vLXJlcGVhdDtcbn0iXSwic291cmNlUm9vdCI6IiJ9*/

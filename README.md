@@ -49,6 +49,7 @@ $ ./generator.sh
 Finally, run the development server:
 
 ```
+$ npm run build
 $ npm start
 ```
 
