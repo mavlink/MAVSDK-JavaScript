@@ -7,6 +7,7 @@ PROTO_DIR="proto/protos"
 SDK_DIR="${WORK_DIR}/mavsdk"
 JS_IMPORT_STYLE="commonjs"
 PROTOS=`find ${PROTO_DIR} -name "*.proto" -type f`
+PATH=$PATH:./node_modules/.bin/
 
 command -v protoc-gen-grpc-web >/dev/null 2>&1 || { echo "ERROR: 'protoc-gen-grpc-web' is required (find it here: https://github.com/grpc/grpc-web/releases)!"; echo "You can also install the package globally with 'npm install -g protoc-gen-grpc-web'" exit 1; }
 
