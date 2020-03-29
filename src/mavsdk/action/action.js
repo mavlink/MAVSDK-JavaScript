@@ -1,4 +1,4 @@
-const { ArmRequest, DisarmRequest, TakeoffRequest, KillRequest } = require('./action_pb');
+const { ArmRequest, DisarmRequest, TakeoffRequest, LandRequest } = require('./action_pb');
 const { ActionServicePromiseClient } = require('./action_grpc_web_pb');
 
 class Action {
@@ -27,9 +27,9 @@ class Action {
         return this.plugin.takeoff(request);
     }
 
-    kill() {
-      const request = new KillRequest();
-      return this.plugin.kill(request);
+    land() {
+      const request = new LandRequest();
+      return this.plugin.land(request);
     }
 }
 

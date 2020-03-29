@@ -5,42 +5,59 @@ import './styles.scss';
 console.log("MAVSDK-Javascript")
 
 const drone = new Drone('http://127.0.0.1', 10000, false);
+
 var action;
 
-function armDrone() {
-  drone.connect().then((d) => {
-    d.action.then((a) => {
-      action = a;
-      a.arm().then(() => {
-        console.log('Arming');
-      }).catch((e) => {
-        console.log(e);
+async function getAction() {
+  if (!action) {
+    return drone.connect().then((d) => {
+      return d.action.then((a) => {
+        action = a;
+        return action;
       })
+    })
+  } else {
+    return action;
+  }
+}
+
+function armDrone() {
+  getAction().then((a) => {
+      a.arm().then(() => {
+      console.log('Arming');
+    }).catch((e) => {
+      console.log(e);
     })
   })
 }
 
 function disarmDrone() {
-  action.disarm().then(() => {
-    console.log('Disarming');
-  }).catch((e) => {
-    console.log(e);
+  getAction().then((a) => {
+      a.disarm().then(() => {
+      console.log('Disarming');
+    }).catch((e) => {
+      console.log(e);
+    })
   })
 }
 
 function takeoffDrone() {
-  action.takeoff().then(() => {
-    console.log('Taking off');
-  }).catch((e) => {
-    console.log(e);
+  getAction().then((a) => {
+      a.takeoff().then(() => {
+      console.log('Taking off');
+    }).catch((e) => {
+      console.log(e);
+    })
   })
 }
 
-function killDrone() {
-  action.kill().then(() => {
-    console.log('Killing Drone');
-  }).catch((e) => {
-    console.log(e);
+function landDrone() {
+  getAction().then((a) => {
+      a.land().then(() => {
+      console.log('Landing Drone');
+    }).catch((e) => {
+      console.log(e);
+    })
   })
 }
 
@@ -50,7 +67,7 @@ function component() {
   const armBtn = document.createElement('button');
   const disarmBtn = document.createElement('button');
   const takeoffBtn = document.createElement('button');
-  const killBtn = document.createElement('button');
+  const landBtn = document.createElement('button');
 
   // Lodash, currently included via a script, is required for this line to work
   element.innerHTML = _.join(['Hello', 'MAVSDK'], ' ');
@@ -66,13 +83,13 @@ function component() {
   disarmBtn.innerHTML = "Disarm Drone";
   disarmBtn.onclick = disarmDrone;
 
-  killBtn.innerHTML = "Kill Drone";
-  killBtn.onclick = killDrone;
+  landBtn.innerHTML = "Land Drone";
+  landBtn.onclick = landDrone;
 
   innerElement.appendChild(armBtn);
   innerElement.appendChild(takeoffBtn);
+  innerElement.appendChild(landBtn);
   innerElement.appendChild(disarmBtn);
-  innerElement.appendChild(killBtn);
 
   return element;
 }
