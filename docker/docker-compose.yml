@@ -13,7 +13,7 @@ services:
             - "50051:50051"
             - "14540:14540/udp"
     gazebo_sitl_headless:
-        image: jonasvautherin/px4-gazebo-headless:v1.10.2
+        image: jonasvautherin/px4-gazebo-headless:v1.10.1
         environment:
             - NO_PXH=1
         links:
