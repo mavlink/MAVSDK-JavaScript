@@ -41,6 +41,16 @@ function disarmDrone() {
   })
 }
 
+function GetMaximumSpeed() {
+  getAction().then((a) => {
+      a.getMaximumSpeed().then((response) => {
+      console.log(response);
+    }).catch((e) => {
+      console.log(e);
+    })
+  })
+}
+
 function takeoffDrone() {
   getAction().then((a) => {
       a.takeoff().then(() => {
@@ -66,8 +76,9 @@ function component() {
   const innerElement = document.createElement('div');
   const armBtn = document.createElement('button');
   const disarmBtn = document.createElement('button');
-  const takeoffBtn = document.createElement('button');
+  const getMaxSpeedBtn = document.createElement('button');
   const landBtn = document.createElement('button');
+  const takeoffBtn = document.createElement('button');
 
   // Lodash, currently included via a script, is required for this line to work
   element.innerHTML = _.join(['Hello', 'MAVSDK'], ' ');
@@ -77,19 +88,23 @@ function component() {
   armBtn.innerHTML = "Arm Drone";
   armBtn.onclick = armDrone;
 
-  takeoffBtn.innerHTML = "Takeoff Drone";
-  takeoffBtn.onclick = takeoffDrone;
-
   disarmBtn.innerHTML = "Disarm Drone";
   disarmBtn.onclick = disarmDrone;
+
+  getMaxSpeedBtn.innerHTML = "Get Maximum Speed";
+  getMaxSpeedBtn.onclick = GetMaximumSpeed;
 
   landBtn.innerHTML = "Land Drone";
   landBtn.onclick = landDrone;
 
+  takeoffBtn.innerHTML = "Takeoff Drone";
+  takeoffBtn.onclick = takeoffDrone;
+
   innerElement.appendChild(armBtn);
+  innerElement.appendChild(disarmBtn);
+  innerElement.appendChild(getMaxSpeedBtn);
   innerElement.appendChild(takeoffBtn);
   innerElement.appendChild(landBtn);
-  innerElement.appendChild(disarmBtn);
 
   return element;
 }
