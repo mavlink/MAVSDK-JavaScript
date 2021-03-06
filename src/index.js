@@ -7,6 +7,7 @@ console.log("MAVSDK-Javascript")
 const drone = new Drone('http://127.0.0.1', 10000, false);
 
 var action;
+var telemetry;
 
 async function getAction() {
   if (!action) {
@@ -18,6 +19,19 @@ async function getAction() {
     })
   } else {
     return action;
+  }
+}
+
+async function getTelemetry() {
+  if (!telemetry) {
+    return drone.connect().then((d) => {
+      return d.telemetry.then((t) => {
+        telemetry = t;
+        return telemetry;
+      })
+    })
+  } else {
+    return telemetry;
   }
 }
 
@@ -71,6 +85,24 @@ function landDrone() {
   })
 }
 
+function subscribePosition() {
+  getTelemetry().then((t) => {
+      t.setRatePosition().then(() => {
+          t.subscribePosition((position) => {
+              document.getElementById('position_output').innerHTML =
+                  "Got position: "
+                  + position.getLatitudeDeg().toFixed(6)
+                  + ", "
+                  + position.getLongitudeDeg().toFixed(6)
+                  + ", altitude: "
+                  + position.getRelativeAltitudeM().toFixed(1);
+          });
+      }).catch((e) => {
+          console.log(e);
+      });
+    });
+}
+
 function component() {
   const element = document.createElement('div');
   const innerElement = document.createElement('div');
@@ -79,6 +111,9 @@ function component() {
   const getMaxSpeedBtn = document.createElement('button');
   const landBtn = document.createElement('button');
   const takeoffBtn = document.createElement('button');
+  const positionBtn = document.createElement('button');
+  var positionOutput = document.createElement('div');
+  positionOutput.setAttribute('id', 'position_output');
 
   // Lodash, currently included via a script, is required for this line to work
   element.innerHTML = _.join(['Hello', 'MAVSDK'], ' ');
@@ -100,11 +135,16 @@ function component() {
   takeoffBtn.innerHTML = "Takeoff Drone";
   takeoffBtn.onclick = takeoffDrone;
 
+  positionBtn.innerHTML = "Subscribe to position";
+  positionBtn.onclick = subscribePosition;
+
   innerElement.appendChild(armBtn);
   innerElement.appendChild(disarmBtn);
   innerElement.appendChild(getMaxSpeedBtn);
   innerElement.appendChild(takeoffBtn);
   innerElement.appendChild(landBtn);
+  innerElement.appendChild(positionBtn);
+  innerElement.appendChild(positionOutput);
 
   return element;
 }
