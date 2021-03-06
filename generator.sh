@@ -33,6 +33,19 @@ function generateForWeb {
       --grpc-web_out=import_style=$JS_IMPORT_STYLE,mode=grpcwebtext:$SDK_DIR \
       $PROTO_FILE
   done
+
+  # We need to add eslint-disable, otherwise create-react-app doesn't work with
+  # this, see:
+  # https://github.com/improbable-eng/grpc-web/issues/96#issuecomment-347871452
+  for f in "${SDK_DIR}"/*/*_pb.js
+  do
+    echo '/* eslint-disable */' | cat - "${f}" > temp && mv temp "${f}"
+  done
+
+  for f in "${SDK_DIR}"/*_pb.js
+  do
+    echo '/* eslint-disable */' | cat - "${f}" > temp && mv temp "${f}"
+  done
 }
 
 echo "[+] Generating plugins for grpc-web "
