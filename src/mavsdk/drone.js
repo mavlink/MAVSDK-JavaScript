@@ -1,4 +1,5 @@
 import Action from './action/action';
+import Telemetry from './telemetry/telemetry';
 
 class Drone {
   constructor(host, port, autoconnect) {
@@ -16,6 +17,10 @@ class Drone {
       throw 'SSL not yet implemented'
     }
 
+    if (this._ready) {
+      return this;
+    }
+
     const plugin_options = {
       keepCase: true,
       longs: String,
@@ -30,14 +35,7 @@ class Drone {
     */
     const plugins = [
       { name: 'action', handler: Action },
-      // { name: 'gimbal', handler: Gimbal },
-      // { name: 'core', handler: Core },
-      // { name: 'calibration', handler: Calibration },
-      // { name: 'camera', handler: Camera },
-      // { name: 'discovery', handler: Discovery },
-      // { name: 'mission', handler: Mission },
-      // { name: 'info', handler: Info },
-      // { name: 'telemetry', handler: Telemetry },
+      { name: 'telemetry', handler: Telemetry },
     ];
 
     const pluginsMap = plugins.map((pluginObject) => {
