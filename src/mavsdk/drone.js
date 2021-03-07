@@ -5,7 +5,7 @@ class Drone {
   constructor(host, port, autoconnect) {
     this._host = host;
     this._port = port;
-    this._ssl = false; // not implemented
+    this._ssl = false;
     this._ready = false;
     if (autoconnect) {
       return this.connect();
@@ -21,6 +21,8 @@ class Drone {
       return this;
     }
 
+    this._ready = true;
+
     const plugin_options = {
       keepCase: true,
       longs: String,
@@ -30,9 +32,6 @@ class Drone {
       includeDirs: ['proto/protos'],
     };
 
-    /*
-    REGISTER YOUR PLUGINS HERE
-    */
     const plugins = [
       { name: 'action', handler: Action },
       { name: 'telemetry', handler: Telemetry },
@@ -47,7 +46,6 @@ class Drone {
     });
 
     return Promise.all(pluginsMap).then((values) => {
-      this._ready = true;
       return this;
     });
   }
