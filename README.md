@@ -1,5 +1,7 @@
 # MAVSDK-JavaScript
 
+**Note: this is archived. If something like it is ever required, it should be done based on the native C MAVSDK wrapper in the [mavlink/MAVSDK](https://github.com/mavlink/MAVSDK) repo instead.**
+
 JS wrapper for [mavlink/MAVSDK](https://github.com/mavlink/MAVSDK) using [grpc-web](https://github.com/grpc/grpc-web) to generate a static http client, communicating through the Envoy proxy.
 
 __NOTE: this is still a proof of concept, don't try to use it in production!__
